@@ -1,0 +1,3 @@
+# Keep the checked out tree byte-identical across machines: the Docker build
+# context and the service source are line-ending sensitive enough to matter.
+* text=auto eol=lf
