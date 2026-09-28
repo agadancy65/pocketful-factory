@@ -371,6 +371,14 @@ async function group5(tokens) {
   check('a caller-only split still computes the share', JSON.stringify(res.json.shares) === JSON.stringify([{ handle: 'ada', amount: 100 }]), res.text);
   res = await post('/splits', { token: tokens.ada, key: 'split-note', body: { amount: 100, participant_handles: ['bob'], note: 'y'.repeat(201) } });
   expectError('a 201 character split note is 422', res, 422, 'validation_failed');
+  res = await post('/splits', { token: tokens.ada, key: 'split-type', body: { amount: 100, participant_handles: 'bob' } });
+  expectError('a wrongly typed participant_handles is 400', res, 400, 'malformed_request');
+  res = await post('/splits', { token: tokens.ada, key: 'split-elem', body: { amount: 100, participant_handles: [123] } });
+  expectError('a non-string participant element is 400', res, 400, 'malformed_request');
+  res = await post('/splits', { token: tokens.ada, key: 'split-missing', body: { amount: 100 } });
+  expectError('a missing participant_handles is 422', res, 422, 'validation_failed');
+  res = await post('/splits', { token: tokens.ada, key: 'split-null', body: { amount: 100, participant_handles: null } });
+  expectError('a null participant_handles is 400', res, 400, 'malformed_request');
 }
 async function group6() {
   await post('/_test/reset', { body: fixture() });

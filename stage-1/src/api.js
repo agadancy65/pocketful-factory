@@ -258,11 +258,11 @@ function createSplit(ctx) {
   const note = noteField(body);
   const handles = body.participant_handles;
   if (handles === undefined) fail(422, 'validation_failed', 'participant_handles is required');
-  if (!Array.isArray(handles)) fail(422, 'validation_failed', 'participant_handles must be an array');
+  if (!Array.isArray(handles)) fail(400, 'malformed_request', 'participant_handles must be an array');
   if (handles.length === 0) fail(422, 'validation_failed', 'participant_handles must not be empty');
   const seen = new Set();
   for (const handle of handles) {
-    if (typeof handle !== 'string') fail(422, 'validation_failed', 'participant_handles must contain handles');
+    if (typeof handle !== 'string') fail(400, 'malformed_request', 'participant_handles must contain handles');
     if (seen.has(handle)) fail(422, 'validation_failed', 'participant_handles contains a duplicate handle');
     seen.add(handle);
   }
