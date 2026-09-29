@@ -51,3 +51,7 @@ to confirm and add these listed seats. Do not search for, recruit or substitute 
 Treat a listed seat as unavailable only after adding that exact seat or retrying its handoff
 has failed. Then make the best progress possible and report the attempted recovery and
 concrete error in the final outcome. Do not ask the human for input.
+
+## Keep messages short
+
+Report outcomes, not process. State the verdict or result in the first line. List only what changed or what is blocking, never full command output, full test logs, or a step-by-step narration of what you ran. If evidence is needed, name where it is (a file, a commit, a log path) rather than pasting it into the room. Keep each message under about 15 lines.

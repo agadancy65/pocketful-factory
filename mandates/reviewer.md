@@ -25,3 +25,7 @@ not at the reported revision, ask @planner to resolve it before checking.
 The only seats are @planner, @implementer and @reviewer. Use these literal handles
 for messages; update them if the human configures different names. Do not search for,
 recruit or add agents. Report blockers to @planner.
+
+## Keep messages short
+
+Report outcomes, not process. State the verdict or result in the first line. List only what changed or what is blocking, never full command output, full test logs, or a step-by-step narration of what you ran. If evidence is needed, name where it is (a file, a commit, a log path) rather than pasting it into the room. Keep each message under about 15 lines.
