@@ -1,0 +1,15 @@
+{
+  "name": "pocketful-stage-2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pocketful stage 2: wallet screens, payment requests and payment authorizations",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "checks": "node tests/checks.js"
+  }
+}
