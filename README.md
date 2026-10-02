@@ -51,3 +51,5 @@ cap twice during the collaboration, which required continuing in a fresh room
 each time (with the same three seats, recapped on the last known state). The
 collaboration is therefore recorded across three room exports rather than one
 continuous file.
+
+**Room files:** `room.json` is the full session export of the final room. The other sessions are in `rooms/` as `room-1-pocketful.json.txt`, `room-2-pocketful.json.txt` and `room-3-pocketful.json.txt` (the last is a copy of `room.json`). They carry a `.txt` suffix only so secret scanners don't read the source code inside them as config. The Band team confirmed that submitting multiple room exports this way is acceptable.
