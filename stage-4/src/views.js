@@ -74,10 +74,11 @@
     parts.push('<div class="wallet-available">');
     parts.push('<span class="wallet-label">Available</span>');
     parts.push('<span class="wallet-value" data-testid="wallet-available" data-amount="' + esc(wallet.available) + '">' + esc(formatAmount(wallet.available, minorUnits, currency)) + '</span>');
+    parts.push('<span class="wallet-hint">Funds you can spend now</span>');
     parts.push('</div>');
     parts.push('<div class="wallet-secondary">');
     parts.push('<div class="wallet-cell"><span class="wallet-label">Total</span>');
-    parts.push('<span class="wallet-value" data-testid="wallet-balance" data-amount="' + esc(wallet.balance) + '">' + esc(formatAmount(wallet.balance, minorUnits, currency)) + '</span></div>');
+    parts.push('<span class="wallet-value" data-testid="wallet-balance" data-amount="' + esc(wallet.balance) + '">' + esc(formatAmount(wallet.balance, minorUnits, currency)) + '</span><span class="wallet-hint">Total including any held funds</span></div>');
     if (Number(wallet.held) !== 0) {
       parts.push('<div class="wallet-cell"><span class="wallet-label">On hold</span>');
       parts.push('<span class="wallet-value" data-testid="wallet-held" data-amount="' + esc(wallet.held) + '">' + esc(formatAmount(wallet.held, minorUnits, currency)) + '</span></div>');
