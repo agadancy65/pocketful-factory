@@ -12,6 +12,15 @@ const NAV = [
   ['/authorizations', 'Authorizations'],
 ];
 
+// The nav rows are keyed by their href while layout() is given a page name, so
+// the two key spaces are bridged here: a page name maps to the route it lives on.
+const PAGE_ROUTES = {
+  wallet: '/',
+  requests: '/requests',
+  split: '/split',
+  authorizations: '/authorizations',
+};
+
 function layout(options) {
   const session = options.session;
   const parts = [];
@@ -35,7 +44,7 @@ function layout(options) {
   parts.push('<a class="brand" href="/">Pocketful</a>');
   parts.push('<nav class="nav">');
   for (const link of NAV) {
-    parts.push('<a href="' + link[0] + '"' + (options.page === link[0] ? ' aria-current="page"' : '') + '>' + link[1] + '</a>');
+    parts.push('<a href="' + link[0] + '"' + (PAGE_ROUTES[options.page] === link[0] ? ' aria-current="page"' : '') + '>' + link[1] + '</a>');
   }
   parts.push('</nav>');
   parts.push('<div class="session">');
