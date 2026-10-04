@@ -53,3 +53,11 @@ collaboration is therefore recorded across three room exports rather than one
 continuous file.
 
 **Room files:** `room.json` is the full session export of the final room. The other sessions are in `rooms/` as `room-1-pocketful.json.txt`, `room-2-pocketful.json.txt` and `room-3-pocketful.json.txt` (the last is a copy of `room.json`). They carry a `.txt` suffix only so secret scanners don't read the source code inside them as config. The Band team confirmed that submitting multiple room exports this way is acceptable.
+
+## Live demo
+
+Titan Ledger runs at: REPLACE-WITH-YOUR-PUBLISHED-REPLIT-URL
+
+The app starts with five demo accounts, all using the throwaway password `correct horse`:
+`ada@example.com`, `bob@example.com`, `joseph@example.com`, `agada@example.com` and `john@example.com`.
+They hold test money only. A new sign-up starts with a zero balance.
