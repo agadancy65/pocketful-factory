@@ -56,7 +56,7 @@ continuous file.
 
 ## Live demo
 
-Titan Ledger runs at: REPLACE-WITH-YOUR-PUBLISHED-REPLIT-URL
+Titan Ledger runs at: https://pocketful-factory--agadajosephojoc.replit.app
 
 The app starts with five demo accounts, all using the throwaway password `correct horse`:
 `ada@example.com`, `bob@example.com`, `joseph@example.com`, `agada@example.com` and `john@example.com`.
