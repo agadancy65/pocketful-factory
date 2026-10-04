@@ -4,6 +4,7 @@
 // browser (or a test client) can reach it by URL without running scripts; the
 // browser script then keeps the same markup up to date in place.
 const V = require('./views');
+const DEMO = require('./demo');
 
 const NAV = [
   ['/', 'Wallet'],
@@ -187,6 +188,19 @@ function renderAuthorizations(session, data) {
   return layout({ title: 'Authorizations', page: 'authorizations', session, content });
 }
 
+// The demo accounts the service seeds for itself, so a visitor can see what to
+// sign in with. All five share one password.
+function demoAccounts() {
+  const items = DEMO.DEMO_USERS.map((user) => '<li>' + V.esc(user.email) + '</li>');
+  return [
+    '<div class="demo-accounts">',
+    '<h3>Demo accounts</h3>',
+    '<ul>' + items.join('') + '</ul>',
+    '<p class="hint">Every demo account uses the password <code>' + V.esc(DEMO.DEMO_PASSWORD) + '</code>.</p>',
+    '</div>',
+  ].join('\n');
+}
+
 function renderLogin(session) {
   const content = [
     '<section class="card card-narrow">',
@@ -198,6 +212,7 @@ function renderLogin(session) {
     '<button class="button" type="submit" data-testid="login-submit">Sign in</button>',
     '</form>',
     '<p class="hint">No account yet? <a href="/signup">Create one</a>.</p>',
+    demoAccounts(),
     '</section>',
   ].join('\n');
   return layout({ title: 'Sign in', page: 'login', session, content });
@@ -215,6 +230,7 @@ function renderSignup(session) {
     '<button class="button" type="submit" data-testid="signup-submit">Create account</button>',
     '</form>',
     '<p class="hint">Already have an account? <a href="/login">Sign in</a>.</p>',
+    demoAccounts(),
     '</section>',
   ].join('\n');
   return layout({ title: 'Sign up', page: 'signup', session, content });

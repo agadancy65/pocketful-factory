@@ -5,6 +5,8 @@ const { HttpError, fail } = require('./errors');
 const { sendResult, sendError, readRawBody, parseJsonBody, wantsHtml, readCookie, SESSION_COOKIE } = require('./http');
 const api = require('./api');
 const store = require('./store');
+const stateLib = require('./state');
+const demo = require('./demo');
 
 const routes = [
   { method: 'GET', pattern: /^\/health$/, handler: api.health },
@@ -106,6 +108,8 @@ async function handleRequest(req, res) {
     body = parseJsonBody(await readRawBody(req));
   }
 
+  // A brand new process seeds the demo accounts before its first handler runs.
+  await ensureDemoState();
   // The state may have been replaced while the body was being read.
   const state = store.get();
   // Accept: text/html asks for the screen; every other client gets JSON.
@@ -128,6 +132,34 @@ async function handleRequest(req, res) {
   };
   sendResult(res, await handler(ctx));
 }
+
+// A service that has never been reset or imported starts with the five demo
+// accounts, so the screens and the API are usable the moment it is up. No
+// handler runs until the seed has settled, and the seed only ever fills an empty
+// store, so a reset or an import still wins.
+let seedPromise = null;
+
+function ensureDemoState() {
+  if (store.get() !== null) return Promise.resolve();
+  if (seedPromise === null) {
+    seedPromise = stateLib.stateFromFixture(demo.demoFixture()).then(
+      (next) => {
+        if (store.get() === null) store.set(next);
+        seedPromise = null;
+      },
+      (error) => {
+        seedPromise = null;
+        throw error;
+      }
+    );
+  }
+  return seedPromise;
+}
+
+// Start the seed as the process starts; every request awaits the same promise.
+ensureDemoState().catch((error) => {
+  process.stderr.write('demo seed failed: ' + (error && error.message ? error.message : String(error)) + '\n');
+});
 
 const server = http.createServer((req, res) => {
   handleRequest(req, res).catch((error) => {

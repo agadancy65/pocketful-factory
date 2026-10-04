@@ -19,12 +19,34 @@ docker run --rm -p 8080:8080 -e PORT=8080 pocketful-stage-4
 ```
 
 `PORT` selects the listening port (default `8080`) and the service always binds
-`0.0.0.0`. Nothing else needs to be configured, mounted or seeded: the process is
-ready as soon as it starts listening, so `GET /health` answers within a second of
+`0.0.0.0`. Nothing else needs to be configured or mounted: a service that starts
+with no state of its own seeds the five demo accounts below, so the process is
+ready as soon as it starts listening and `GET /health` answers within a second of
 container start.
 
 To use another host port, change the mapping and `PORT` together, e.g.
 `-p 9000:9000 -e PORT=9000`.
+
+## Demo accounts
+
+A service that starts with no state of its own creates five demo accounts, with
+no payments, requests or holds, so the screens and the API are usable straight
+away. Every account uses the password `correct horse`:
+
+| Email | Handle | Display name | Balance |
+|---|---|---|---|
+| `ada@example.com` | `ada` | Ada | 100.00 EUR |
+| `bob@example.com` | `bob` | Bob | 250.00 EUR |
+| `joseph@example.com` | `joseph` | Joseph | 500.00 EUR |
+| `agada@example.com` | `agada` | Agada | 75.00 EUR |
+| `john@example.com` | `john` | John | 30.00 EUR |
+
+Balances are minor units, so `10000` is `100.00 EUR`. The seed is built by the
+same code path as `POST /_test/reset`, so it carries the same revision and
+opening-balance invariants. It only ever fills an empty store: `POST
+/_test/reset` and `POST /_test/import` replace the state exactly as before, and
+the seed does not return after a reset. The same five logins are listed on
+`/login` and `/signup`.
 
 ## Screens
 
